@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import retargetEvents from 'react-shadow-dom-retarget-events';
-import App from './App';
+import DucWrapper from './DucWrapper/duc-wrapper';
 
 (function() {
   const thisDocument = document.currentScript.ownerDocument;
@@ -12,16 +12,20 @@ import App from './App';
         const shadowRootEl = this.attachShadow({mode: 'open'});
         const template = thisDocument.getElementById('hello-world');
         const clone = document.importNode(template.content, true);
-        var color = 'yellow';
+        let ducList = [
+          {ID:1,type: 'textbox'},
+          {ID:3,type: 'ddl'},
+          {ID:5,type: 'checkbox'}
+        ];
 
-        if (this.hasAttribute('color2')) {
-          color = this.getAttribute('color2');
+        if (this.hasAttribute('ducList')) {
+          ducList = this.getAttribute('ducList');
         }
         shadowRootEl.appendChild(clone);
         const internalRootEl = shadowRootEl.getElementById('root');
-     // debugger;
+      debugger;
         render(
-          <App color={color} />,
+          <DucWrapper ducList={ducList}></DucWrapper>,
           shadowRootEl.getElementById('root'),
         );
         retargetEvents(shadowRootEl);
