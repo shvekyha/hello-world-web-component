@@ -13,22 +13,22 @@ class Duc extends Component {
 
     onChange(e){
         let value = e.target.value;
-        let id = e.target.id.split('_')[1];
+        let ID = e.target.id.split('_')[1];
 
-        this.callDucValueChange(value, id);
+        this.callDucValueChange(value, ID);
     }
 
     onCheckChanged(e){
         let value = e.target.checked.toString();
-        let id = e.target.id.split('_')[1];
+        let ID = e.target.id.split('_')[1];
 
-        this.callDucValueChange(value, id);
+        this.callDucValueChange(value, ID);
     }
 
-    callDucValueChange(value, id){
+    callDucValueChange(value, ID){
         //console.log(`callDucValueChange value: ${value} id: ${id}`);
 
-        this.props.callBackOnDucValueChange({ ducValue: value, id: id });
+        this.props.callBackOnDucValueChange({ ducValue: value, ID: ID });
     }
 
   render() {
