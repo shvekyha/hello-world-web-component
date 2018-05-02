@@ -12,6 +12,7 @@ module.exports = env => {
     output: {
       filename: 'hello-world.js',
       path: path.resolve(__dirname, 'dist'),
+      //path: path.resolve('C:\\Projects In Progress\\uStorePlayground\\nextjs-theme-with-store-config\\themes\\basic\\web-components'),
     },
     module: {
       rules: [
