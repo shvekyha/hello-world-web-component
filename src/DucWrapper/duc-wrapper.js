@@ -6,8 +6,6 @@ class DucWrapper extends Component {
   
   constructor(props) {
     super(props);
-    // console.log('DucWrapper constructor: props.ducList: '+JSON.stringify(props.ducList));
-    // console.log('DucWrapper constructor: props.color: '+props.color);
     this.state = {
         ducValueList:[]
     }
@@ -23,12 +21,14 @@ class DucWrapper extends Component {
     ducValue ? list.find((item) => item.ID === data.ID).ducValue = data.ducValue: list.push(data);
 
     this.setState({ducValueList: list});
+
+    this.props.callBackOnChanged({ducValueList: list});
   }
 
   render() {
     return(
       <div id="ducWrapperRoot">
-        <div>This is DucWrapper</div><div>color: {this.props.color}</div>
+        <div>This is DucWrapper</div><br />
         <div>
             {
                 this.props && this.props.ducList && 

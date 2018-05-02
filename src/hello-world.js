@@ -6,20 +6,18 @@ import DucWrapper from './DucWrapper/duc-wrapper';
 (function() {
   const thisDocument = document.currentScript.ownerDocument;
   window.addEventListener('WebComponentsReady', () => {
-    //console.log('WebComponentsReady');
     class HelloWorld extends HTMLElement {
       constructor() {
-        //console.log('constructor');
         super();
       }
 
       connectedCallback(){
-        //console.log('connectedCallback');
+
         const shadowRootEl = this.attachShadow({mode: 'open'});
         const template = thisDocument.getElementById('hello-world');
-        const clone = document.importNode(template.content, true);
+
+        const clone = document.importNode(template.content, true);      
         
-        //TODO: should set ducList and color as properties and address them like that
         let ducList = [
           {ID:1, title: 'Branch Name', type: 'textbox'},
           {ID:3, title: 'Paper Type', type: 'ddl', items:[{value:'Matt',text:'Matt'},{value:'Premium',text:'Premium'},{value:'Gloss',text:'Gloss'}]},
@@ -39,11 +37,18 @@ import DucWrapper from './DucWrapper/duc-wrapper';
         const internalRootEl = shadowRootEl.getElementById('root');
         //debugger;
         render(
-          <DucWrapper ducList={ducList} color={color}></DucWrapper>,
+          <DucWrapper ducList={ducList} color={color} callBackOnChanged={this.OnChanged} parent={this}></DucWrapper>,
           shadowRootEl.getElementById('root'),
         );
+
         retargetEvents(shadowRootEl);
       }
+
+      OnChanged(ducValueList){
+        let event = new CustomEvent('OnDucChanged', { detail: ducValueList });
+        this.parent.dispatchEvent(event);
+      }
+
     }
     window.customElements.define('hello-world', HelloWorld);
   });
